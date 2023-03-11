@@ -4,14 +4,15 @@ import { useSphere } from "@react-three/cannon";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Ref } from "../interfaces";
 import { useKeyboard } from "../hooks/useKeyboards";
+import {
+  CHARACTER_JUMP_FORCE,
+  CHARACTER_SPEED,
+  DEFAULT_POSITION,
+} from "../constants";
 
-const defaultPos = [0, 0, 0];
 const positionX = 0;
 const positionY = 1;
 const positionZ = 0;
-
-const CHARACTER_SPEED = 5;
-const CHARACTER_JUMP_FORCE = 10;
 
 const Player = () => {
   const { 
@@ -29,8 +30,8 @@ const Player = () => {
     position: [positionX, positionY, positionZ],
   }));
 
-  const pos = useRef(defaultPos);
-  const vel = useRef(defaultPos);
+  const pos = useRef(DEFAULT_POSITION);
+  const vel = useRef(DEFAULT_POSITION);
 
   useEffect(() => {
     api.position.subscribe((p) => {
@@ -59,7 +60,7 @@ const Player = () => {
     direction
       .subVectors(frontVector, sideVector)
       .normalize()
-      .multiplyScalar(CHARACTER_SPEED)// walk: 2, run: 5
+      .multiplyScalar(CHARACTER_SPEED) // walk: 2, run: 5
       .applyEuler(camera.rotation);
 
     api.velocity.set(direction.x, vel.current[1], direction.z);
