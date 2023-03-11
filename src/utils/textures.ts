@@ -1,5 +1,6 @@
 import { grassImg, dirtImg, logImg, glassImg, woodImg } from "../images";
-import { NearestFilter, RepeatWrapping, TextureLoader } from "three";
+import { NearestFilter, RepeatWrapping, Texture, TextureLoader } from "three";
+import { IDictionary } from '../interfaces'
 
 const grassTexture = new TextureLoader().load(grassImg);
 const dirtTexture = new TextureLoader().load(dirtImg);
@@ -27,3 +28,13 @@ export {
   glassTexture,
   woodTexture,
 };
+
+const textures: IDictionary<Texture> = {
+  grass: grassTexture,
+  dirt: dirtTexture,
+  log: logTexture,
+  glass: glassTexture,
+  wood: woodTexture,
+};
+
+export default textures;

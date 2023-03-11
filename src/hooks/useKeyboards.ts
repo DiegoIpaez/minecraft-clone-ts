@@ -1,7 +1,7 @@
 import { useEffect, useState, KeyboardEvent } from "react";
-import { Actions, ActionsKeyboardMap } from "../interfaces";
+import { Actions, IDictionary } from "../interfaces";
 
-const ACTIONS_KEYBOARD_MAP: ActionsKeyboardMap = {
+const ACTIONS_KEYBOARD_MAP: IDictionary<string> = {
   KeyW: "moveForward",
   KeyS: "moveBackward",
   KeyA: "moveLeft",
