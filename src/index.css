@@ -31,3 +31,30 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.texture-selector {
+  bottom: 32px;
+  background: #aaa;
+  padding: 8px;
+  border: 3px solid #706b6b;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.texture-selector.hidden {
+  display: none;
+}
+
+.texture-selector img {
+  width: 50px;
+  z-index: 100;
+  image-rendering: pixelated;
+  border: 3px solid transparent;
+}
+
+.texture-selector img.selected {
+  border-color: red;
+}

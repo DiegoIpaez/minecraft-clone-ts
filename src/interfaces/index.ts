@@ -30,7 +30,7 @@ export interface Store {
   cubes: Cube[];
   addCube: PositionCallback;
   removeCube: (id: string) => void;
-  setTexture: () => void;
+  setTexture: (texture: string) => void;
   saveWorld: () => void;
   resetWorld: () => void;
 }
