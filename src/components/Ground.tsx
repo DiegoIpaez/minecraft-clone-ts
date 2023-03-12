@@ -1,4 +1,5 @@
 import { usePlane } from "@react-three/cannon";
+import { ThreeEvent } from "@react-three/fiber";
 import { useStore } from "../hooks/useStore";
 import { Ref } from "../interfaces";
 import { groundTexture } from "../utils/textures";
@@ -19,7 +20,8 @@ const Ground = () => {
 
   const [addCube] = useStore((state) => [state.addCube]);
 
-  const handleClickGround = (event: any) => {
+  const handleClickGround = (event: ThreeEvent<MouseEvent>) => {
+    if (event.altKey) return;
     event.stopPropagation();
     const point: number[] = Object.values(event.point);
     const [x, y, z] = point.map((num) => Math.ceil(num || 0));
