@@ -4,6 +4,7 @@ import { ThreeEvent } from "@react-three/fiber";
 import { Position, Ref } from "../interfaces";
 import { useStore } from "../hooks/useStore";
 import textures from "../utils/textures";
+import { Vector3 } from "three";
 
 interface Props {
   id: string;
@@ -12,7 +13,10 @@ interface Props {
 }
 
 const Cube = ({ id, position, texture }: Props) => {
-  const [removeCube] = useStore((state) => [state.removeCube]);
+  const [removeCube, addCube] = useStore((state) => [
+    state.removeCube,
+    state.addCube,
+  ]);
   const [isHovered, setIsHovered] = useState(false);
 
   const [ref] = useBox(() => ({
@@ -25,8 +29,39 @@ const Cube = ({ id, position, texture }: Props) => {
     setIsHovered(value);
   };
 
+  const addCubeByClickedFace = (clickedFace: number, position: Vector3) => {
+    const { x, y, z } = position;
+
+    switch (clickedFace) {
+      case 0:
+        addCube(x + 1, y, z);
+        break;
+      case 1:
+        addCube(x - 1, y, z);
+        break;
+      case 2:
+        addCube(x, y + 1, z);
+        break;
+      case 3:
+        addCube(x, y - 1, z);
+        break;
+      case 4:
+        addCube(x, y, z + 1);
+        break;
+      case 5:
+        addCube(x, y, z - 1);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleRemoveCube = (e: ThreeEvent<MouseEvent>) => {
     if (e.altKey) return removeCube(id);
+    if (ref?.current?.position && e.faceIndex) {
+      const clickedFace = Math.floor(e.faceIndex / 2);
+      addCubeByClickedFace(clickedFace, ref.current.position)
+    }
   };
 
   const activeTexture = textures[texture];
