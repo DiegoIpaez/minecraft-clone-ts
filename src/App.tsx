@@ -6,6 +6,7 @@ import FPV from "./components/FPV";
 import Player from "./components/Player";
 import Cubes from "./components/Cubes";
 import TextureSelect from "./components/TextureSelect";
+import Menu from "./components/Menu";
 
 const sunPositionX = 100;
 const sunPositionY = 100;
@@ -26,6 +27,7 @@ const App = () => {
       </Canvas>
       <div className="pointer">+</div>
       <TextureSelect />
+      <Menu />
     </>
   );
 };

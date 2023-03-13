@@ -1,20 +1,16 @@
 import { create } from "zustand";
-import { Store } from "../interfaces";
+import { Store, Cube } from "../interfaces";
+
+const getLocalStorage = (id: string): Cube[] => {
+  const data = window.localStorage.getItem(id);
+  return data ? JSON.parse(data) : [];
+}
+const setLocalStorage = (id: string, value: Cube[]) =>
+  window.localStorage.setItem(id, JSON.stringify(value));
 
 export const useStore = create<Store>((set) => ({
   texture: "dirt",
-  cubes: [
-    {
-      id: crypto.randomUUID(),
-      pos: [1, 1, 1],
-      texture: "dirt",
-    },
-    {
-      id: crypto.randomUUID(),
-      pos: [1, 5, 1],
-      texture: "log",
-    },
-  ],
+  cubes: getLocalStorage('cubes'),
   addCube: (x, y, z) => {
     set((state) => ({
       ...state,
@@ -40,6 +36,15 @@ export const useStore = create<Store>((set) => ({
       texture,
     }));
   },
-  saveWorld: () => {},
-  resetWorld: () => {},
+  saveWorld: () => {
+    set((state) => {
+      setLocalStorage("cubes", state.cubes);
+      return state;
+    });
+  },
+  resetWorld: () => {
+    set(() => ({
+      cubes: [],
+    }));
+  },
 }));
